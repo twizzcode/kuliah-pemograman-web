@@ -1,0 +1,47 @@
+{{define "layout"}}
+
+<html>
+    <head>
+        <title>Welcome to my Website</title>
+        <style>
+            #header {
+                background-color: black;
+                color: white;
+            }
+
+            #siderbar {
+                float: left;
+                width: 200px;
+                background-color: antiquewhite;
+            }
+
+            #content {
+                margin-left: 210px;
+                padding: 10px;
+            }
+
+            #footer {
+                clear: both;
+                background-color: black;
+                color: white;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div id="header">
+            HEADER
+        </div>
+        <div id="siderbar">
+            SIDEBAR
+        </div>
+        <div id="content">
+            {{template "content" .}}
+        </div>
+        <div id="footer">
+            &copy; 2026
+        </div>
+    </body>
+</html>
+
+{{end}}

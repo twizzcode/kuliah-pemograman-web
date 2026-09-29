@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Welcome to my homepage</title>
+    </head>
+    <body>
+        <h3>My Home Page</h3>
+        <p>This is my home page</p>
+        <p>{{.judul}}</p>
+        
+        <ol>
+            {{range .user}}
+            <li>{{.Nama}} - {{.Email}}</li>
+            {{end}}
+        </ol>
+    </body>
+</html>
