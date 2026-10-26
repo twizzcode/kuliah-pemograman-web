@@ -1,0 +1,39 @@
+{{define "content"}}
+
+<h3>Daftar Produk</h3>
+
+<a href="/produk/form" class="btn">Tambah Baru</a>
+
+<br><br>
+
+<table>
+    <tr>
+        <th>No</th>
+        <th>Nama</th>
+        <th>Harga</th>
+    </tr>
+
+    {{range .produk}}
+    <tr>
+        <td>{{.No}}</td>
+        <td>{{.Nama}}</td>
+        <td>{{.Harga}}</td>
+    </tr>
+    {{end}}
+</table>
+
+{{end}}
+
+
+
+<!--
+
+    Pengkondisian IF
+    
+    > -> gt
+    >= -> ge
+    == -> eq
+    != -> ne
+    < -> lt
+
+-->

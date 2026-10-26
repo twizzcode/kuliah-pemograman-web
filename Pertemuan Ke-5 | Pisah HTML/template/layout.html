@@ -1,43 +1,137 @@
 {{define "layout"}}
 
+<!DOCTYPE html>
 <html>
     <head>
         <title>Welcome to my Website</title>
         <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+                color: #222;
+            }
+
             #header {
-                background-color: black;
+                background-color: #111;
                 color: white;
+                padding: 16px 20px;
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            #wrapper {
+                display: flex;
+                min-height: 400px;
             }
 
             #siderbar {
-                float: left;
                 width: 200px;
                 background-color: antiquewhite;
-            }
-
-            #content {
-                margin-left: 210px;
                 padding: 10px;
             }
 
+            #siderbar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            #siderbar li {
+                margin-bottom: 8px;
+            }
+
+            #siderbar a {
+                display: block;
+                padding: 8px 10px;
+                text-decoration: none;
+                color: #222;
+                border-radius: 6px;
+            }
+
+            #siderbar a:hover {
+                background-color: #e6d3b3;
+            }
+
+            #content {
+                flex: 1;
+                padding: 20px;
+            }
+
             #footer {
-                clear: both;
-                background-color: black;
+                background-color: #111;
                 color: white;
+                padding: 12px 20px;
+                text-align: center;
+            }
+
+            /* tombol */
+            .btn {
+                display: inline-block;
+                background-color: #111;
+                color: white;
+                padding: 10px 16px;
+                border: none;
+                border-radius: 6px;
+                text-decoration: none;
+                cursor: pointer;
+                font-size: 14px;
+            }
+
+            .btn:hover {
+                background-color: #333;
+            }
+
+            /* tabel */
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                max-width: 600px;
+            }
+
+            th, td {
+                border: 1px solid #ccc;
+                padding: 8px 12px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
+
+            /* form */
+            input[type="text"],
+            input[type="number"] {
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                width: 100%;
+                max-width: 300px;
             }
         </style>
     </head>
-    
+
     <body>
         <div id="header">
             HEADER
         </div>
-        <div id="siderbar">
-            SIDEBAR
+
+        <div id="wrapper">
+            <div id="siderbar">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/produk">Produk</a></li>
+                </ul>
+            </div>
+
+            <div id="content">
+                {{template "content" .}}
+            </div>
         </div>
-        <div id="content">
-            {{template "content" .}}
-        </div>
+
         <div id="footer">
             &copy; 2026
         </div>

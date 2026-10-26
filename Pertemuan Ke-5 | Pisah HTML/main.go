@@ -3,23 +3,42 @@ package main
 import (
 	"html/template"
 	"net/http"
+	"strconv"
 )
 
 type User struct {
-	Nama	string
-	Email	string
+	Nama  string
+	Email string
 }
+
+type Produk struct {
+	Nama  string
+	Harga int
+}
+
+var DataProduk []Produk
 
 var DataUser []User
 
 var tplAbout = template.Must(template.ParseFiles(
+	"template/layout.html",
 	"template/about.html",
 ))
 
-var tplProduct = template.Must((template.ParseFiles(
+var tplProduk = template.Must(template.ParseFiles(
 	"template/layout.html",
-	"template/product.html",
-)))
+	"template/produk.html",
+))
+
+var tplProdukForm = template.Must(template.ParseFiles(
+	"template/layout.html",
+	"template/produk_form.html",
+))
+
+var tplHome = template.Must(template.ParseFiles(
+	"template/layout.html",
+	"template/home.html",
+))
 
 func main() {
 
@@ -27,44 +46,76 @@ func main() {
 
 	mux.HandleFunc("GET /", homeHandler)
 	mux.HandleFunc("GET /about", aboutHandler)
-	mux.HandleFunc("GET /product", productHandler)
-	
+	mux.HandleFunc("GET /produk", produkListHandler)
+	mux.HandleFunc("GET /produk/form", produkFormHandler)
+	mux.HandleFunc("POST /produk/simpan", produkSimpanHandler)
+
 	http.ListenAndServe(":8000", mux)
 }
 
-func homeHandler(w http.ResponseWriter, r *http.Request){
-	var tplHome, err = template.ParseFiles("template/home.html")
-	if err != nil {
-		
-	}
-	
+func homeHandler(w http.ResponseWriter, r *http.Request) {
 	// data := []string {
 	// 	"ayam goreng", "bebek goreng", "nila goreng", "lele goreng",
 	// }
-	
 
 	DataUser = append(DataUser, User{
-		Nama: "Budi 14",
+		Nama:  "Budi 14",
 		Email: "budi14@gmail.com",
 	})
 	DataUser = append(DataUser, User{
-		Nama: "Budi 15",
+		Nama:  "Budi 15",
 		Email: "budi15@gmail.com",
 	})
 
 	var data = map[string]any{
-		"judul":	"Halaman Home",
-	 	"user":		DataUser,
+		"judul": "Halaman Home",
+		"user":  DataUser,
 	}
-	
-	tplHome.Execute(w, data)
+
+	tplHome.ExecuteTemplate(w, "layout", data)
 }
 
-func aboutHandler(w http.ResponseWriter, r *http.Request){
-	tplAbout.ExecuteTemplate(w, "about", nil)
+func aboutHandler(w http.ResponseWriter, r *http.Request) {
+	tplAbout.ExecuteTemplate(w, "layout", nil)
 }
 
-func productHandler(w http.ResponseWriter, r *http.Request){
-	data := 89
-	tplProduct.ExecuteTemplate(w, "layout", data)
+func produkListHandler(w http.ResponseWriter, r *http.Request) {
+	// siapkan data + nomor urut (mulai dari 1) untuk ditampilkan di tabel
+	type barisProduk struct {
+		No    int
+		Nama  string
+		Harga int
+	}
+
+	var daftar []barisProduk
+	for i, p := range DataProduk {
+		daftar = append(daftar, barisProduk{
+			No:    i + 1,
+			Nama:  p.Nama,
+			Harga: p.Harga,
+		})
+	}
+
+	data := map[string]any{
+		"produk": daftar,
+	}
+	tplProduk.ExecuteTemplate(w, "layout", data)
+}
+
+func produkFormHandler(w http.ResponseWriter, r *http.Request) {
+	tplProdukForm.ExecuteTemplate(w, "layout", nil)
+}
+
+func produkSimpanHandler(w http.ResponseWriter, r *http.Request) {
+	nama := r.FormValue("nama")
+	harga := r.FormValue("harga")
+
+	hargaInt, _ := strconv.Atoi(harga)
+
+	DataProduk = append(DataProduk, Produk{
+		Nama:  nama,
+		Harga: hargaInt,
+	})
+
+	http.Redirect(w, r, "/produk", http.StatusSeeOther)
 }

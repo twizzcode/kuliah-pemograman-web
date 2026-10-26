@@ -1,0 +1,20 @@
+{{define "content"}}
+
+<h3>Form Produk</h3>
+
+<form action="/produk/simpan" method="POST">
+    <p>
+        <label>Nama:</label><br>
+        <input type="text" name="nama" required>
+    </p>
+    <p>
+        <label>Harga:</label><br>
+        <input type="number" name="harga" required>
+    </p>
+    <button type="submit" class="btn">Simpan</button>
+</form>
+
+<br>
+<a href="/produk">Kembali ke Daftar Produk</a>
+
+{{end}}

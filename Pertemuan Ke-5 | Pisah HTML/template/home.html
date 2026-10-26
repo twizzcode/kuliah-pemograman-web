@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Welcome to my homepage</title>
-    </head>
-    <body>
-        <h3>My Home Page</h3>
-        <p>This is my home page</p>
-        <p>{{.judul}}</p>
-        
-        <ol>
-            {{range .user}}
-            <li>{{.Nama}} - {{.Email}}</li>
-            {{end}}
-        </ol>
-    </body>
-</html>
+{{define "content"}}
+
+<div style="text-align: center; padding: 40px 20px;">
+    <h1 style="margin-bottom: 8px;">{{.judul}}</h1>
+    <p style="color: #666; margin-top: 0;">
+        Selamat datang di website sederhana kami.
+    </p>
+
+    <a href="/produk" class="btn" style="margin-top: 12px;">Lihat Produk</a>
+</div>
+
+{{end}}
