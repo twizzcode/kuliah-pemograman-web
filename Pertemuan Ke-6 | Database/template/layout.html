@@ -1,0 +1,206 @@
+{{define "layout"}}
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Web Produk Sederhana</title>
+    <style>
+        :root {
+            --bg: #f4f5f7;
+            --card: #ffffff;
+            --dark: #1f2937;
+            --accent: #2563eb;
+            --accent-dark: #1d4ed8;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+            --green: #047857;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+            background: var(--bg);
+            color: #111827;
+        }
+
+        /* HEADER */
+        #header {
+            background: var(--dark);
+            color: #fff;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+        }
+        #header .brand {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: .3px;
+        }
+        #header .brand span { color: #60a5fa; }
+
+        /* LAYOUT */
+        #wrapper {
+            display: flex;
+            min-height: calc(100vh - 132px);
+        }
+
+        /* SIDEBAR */
+        #sidebar {
+            width: 220px;
+            background: var(--card);
+            border-right: 1px solid var(--border);
+            padding: 16px;
+            flex-shrink: 0;
+        }
+        #sidebar ul { list-style: none; margin: 0; padding: 0; }
+        #sidebar li { margin-bottom: 6px; }
+        #sidebar a {
+            display: block;
+            padding: 10px 12px;
+            text-decoration: none;
+            color: #374151;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: .15s;
+        }
+        #sidebar a:hover { background: #eef2ff; color: var(--accent); }
+
+        /* CONTENT */
+        #content { flex: 1; padding: 28px; }
+
+        .page-title { margin: 0 0 4px; font-size: 22px; }
+        .page-sub { margin: 0 0 20px; color: var(--muted); font-size: 14px; }
+
+        /* FOOTER */
+        #footer {
+            background: var(--dark);
+            color: #9ca3af;
+            padding: 14px 24px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        /* CARD */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 760px;
+        }
+
+        /* TOMBOL */
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: .15s;
+        }
+        .btn:hover { background: var(--accent-dark); }
+
+        .btn-muted { background: #e5e7eb; color: #374151; }
+        .btn-muted:hover { background: #d1d5db; }
+
+        /* TABEL */
+        .table-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 16px;
+            max-width: 760px;
+        }
+        table { border-collapse: collapse; width: 100%; }
+        th, td {
+            padding: 12px 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        th {
+            background: #f9fafb;
+            color: #374151;
+            font-weight: 600;
+        }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover { background: #f9fafb; }
+        .price { font-weight: 600; color: var(--green); }
+        .empty {
+            text-align: center;
+            color: var(--muted);
+            padding: 24px;
+            font-size: 14px;
+        }
+
+        /* FORM */
+        .field { margin-bottom: 16px; }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+        }
+        input[type="text"],
+        input[type="number"] {
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 340px;
+            font-size: 14px;
+            outline: none;
+            transition: .15s;
+        }
+        input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .15);
+        }
+        .actions { display: flex; gap: 10px; align-items: center; margin-top: 4px; }
+
+        @media (max-width: 640px) {
+            #wrapper { flex-direction: column; }
+            #sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
+            #sidebar ul { display: flex; gap: 6px; }
+            #sidebar li { margin: 0; }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <div class="brand">Toko<span>Ku</span></div>
+    </div>
+
+    <div id="wrapper">
+        <div id="sidebar">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/produk">Produk</a></li>
+                <li><a href="/profil">Profil</a></li>
+            </ul>
+        </div>
+
+        <div id="content">
+            {{template "content" .}}
+        </div>
+    </div>
+
+    <div id="footer">
+        &copy; 2026 TokoKu &mdash; Pemrograman Web
+    </div>
+</body>
+</html>
+
+{{end}}

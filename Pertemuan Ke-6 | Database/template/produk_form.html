@@ -1,0 +1,30 @@
+{{define "content"}}
+
+<h1 class="page-title">Form Produk</h1>
+<p class="page-sub">Tambahkan produk baru ke daftar.</p>
+
+<div class="card">
+    <form action="/produk" method="POST">
+        <div class="field">
+            <label for="name">Nama Produk</label>
+            <input type="text" id="name" name="name" placeholder="Contoh: Iphone Duo" required>
+        </div>
+
+        <div class="field">
+            <label for="price">Harga</label>
+            <input type="number" id="price" name="price" placeholder="Contoh: 39000000" min="0" required>
+        </div>
+
+        <div class="field">
+            <label for="stok">Stok</label>
+            <input type="number" id="stok" name="stok" placeholder="Contoh: 10" min="0" value="0">
+        </div>
+
+        <div class="actions">
+            <button type="submit" class="btn">Simpan</button>
+            <a href="/produk" class="btn btn-muted">Batal</a>
+        </div>
+    </form>
+</div>
+
+{{end}}

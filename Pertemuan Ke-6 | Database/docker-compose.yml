@@ -1,0 +1,30 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-pemweb
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: pemograman_web
+      MYSQL_USER: pemweb
+      MYSQL_PASSWORD: pemweb123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mysql_data:
+
+
+# docker compose up -d        # nyalakan
+# docker compose down         # matikan (data tetap aman)
+# docker compose down -v      # matikan + hapus data
+# docker compose logs -f mysql
+# docker exec -it mysql-pemweb mysql -upemweb -ppemweb123 pemograman_web
